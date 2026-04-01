@@ -1,9 +1,15 @@
+import {Link} from "react-router";
 
 const CartPage = () => {
+
+
     return (
-        <div>
-            <h1>Cart</h1>
-        </div>
+        <>
+        <h1>Shopping Cart</h1>
+
+
+            <Link to="/">Go home</Link>
+        </>
     );
 };
 

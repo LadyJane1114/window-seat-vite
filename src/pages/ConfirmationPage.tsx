@@ -1,9 +1,12 @@
 import {useState, useEffect} from "react";
 import {Navigate} from "react-router";
+import Cookies from "js-cookie";
 
 const ConfirmationPage = () => {
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState("");
+    const COOKIE_KEY = "shopping_cart"
+
 
     useEffect(() => {
         const queryString = window.location.search;
@@ -19,6 +22,8 @@ const ConfirmationPage = () => {
     }, []);
 
     if (status === "complete"){
+        // clear the cart
+        Cookies.remove(COOKIE_KEY);
         return(
             <section id="success">
                 <h2>We appreciate your business!</h2>

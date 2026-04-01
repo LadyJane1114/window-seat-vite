@@ -1,6 +1,8 @@
 import {loadStripe, type StripeEmbeddedCheckoutOptions} from "@stripe/stripe-js";
 import {useCallback} from "react";
 import {EmbeddedCheckoutProvider, EmbeddedCheckout} from '@stripe/react-stripe-js';
+import cartPage from "./CartPage.tsx";
+import Cookies from "js-cookie";
 
 const CheckoutPage = () => {
 
@@ -11,6 +13,10 @@ const CheckoutPage = () => {
         //create checkout session
         const res = await fetch("http://localhost:8080/checkout/create-checkout-session",{
             method:"POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body:cartPage
         });
         const data = await res.json();
         return data.clientSecret;

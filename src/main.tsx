@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage.tsx";
 import CheckoutPage from "./pages/CheckoutPage.tsx";
 import ConfirmationPage from "./pages/ConfirmationPage.tsx";
 
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <BrowserRouter>
@@ -16,7 +17,7 @@ createRoot(document.getElementById('root')!).render(
               <NavBar/>
               <Routes>
                   <Route path="/" element={<HomePage/>}/>
-                  <Route path="/details" element={<DetailsPage/>}/>
+                  <Route path="/details/:prodID" element={<DetailsPage/>}/>
                   <Route path="/cart" element={<CartPage/>}/>
                   <Route path="/checkout" element={<CheckoutPage/>}/>
                   <Route path="/confirmation" element={<ConfirmationPage/>}/>
