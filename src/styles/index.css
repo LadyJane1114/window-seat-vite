@@ -127,8 +127,8 @@
   border-radius: 10px;
   background-color: lightgray;
   cursor: pointer;
-  transition: transform 0.5s;        /* only transform transitions */
-  transform-origin: left;            /* flip from left edge */
+  transition: transform 0.5s;
+  transform-origin: left;
   box-shadow: 1px 1px 12px #000;
   display: flex;
   align-items: center;
@@ -136,11 +136,11 @@
 }
 
 .product-book:hover .book-img-cover {
-  transform: rotateY(-80deg);        /* 3D flip on hover */
+  transform: rotateY(-80deg);
 }
 
 .product-book p {
   font-size: 20px;
   font-weight: bolder;
-  margin: 0;                          /* optional: remove default spacing */
+  margin: 0;
 }
