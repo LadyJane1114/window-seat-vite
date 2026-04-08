@@ -13,6 +13,7 @@ const ConfirmationPage = () => {
         const urlParams = new URLSearchParams(queryString);
         const sessionID = urlParams.get('session_id')
 
+
         fetch(`http://localhost:8080/checkout/session-status?session_id=${sessionID}`)
             .then((res)=> res.json())
             .then((data)=>{
@@ -20,6 +21,10 @@ const ConfirmationPage = () => {
                 setCustomerEmail(data.customer_email);
             })
     }, []);
+
+    if (status === null) {
+        return <p>Loading your order...</p>;
+    }
 
     if (status === "complete"){
         // clear the cart
@@ -29,7 +34,7 @@ const ConfirmationPage = () => {
                 <h2>We appreciate your business!</h2>
                 <p>A confirmation email will be sent to {customerEmail}</p>
                 <br/>
-                <p>Please direct any questions to orders@windowseatdolls.ca</p>
+                <p>Please direct any questions to help@windowseatdolls.ca</p>
             </section>
         )
     }

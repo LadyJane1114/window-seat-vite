@@ -22,11 +22,12 @@ const HomePage = () => {
 
             {products.length > 0 && (
                 products.map(product => (
-
-                    <Link key={product.prodID} to={`/details/${product.prodID}`}>
-                        {product.prodName}
-                        {/*<img src={product.prodImgURL} alt={product.prodName}/>*/}
-                    </Link>
+                    <div key={product.prodID} className="pb-3">
+                        <Link to={`/details/${product.prodID}`}>
+                            {product.prodName}
+                            {/*<img src={product.prodImgURL} alt={product.prodName}/>*/}
+                        </Link>
+                    </div>
                 ))
             )}
         </>

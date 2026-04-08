@@ -1,8 +1,8 @@
 import {useParams} from "react-router";
-import type {Product} from "../types/Product.tsx";
 import {useEffect, useState} from "react";
-import Cookies from "js-cookie"
+import type {Product} from "../types/Product.tsx";
 import type {Cart, CartItem} from "../types/Cart.tsx";
+import Cookies from "js-cookie";
 
 function DetailsPage() {
     const {prodID} = useParams()
@@ -22,21 +22,21 @@ function DetailsPage() {
 
 
     const handleAddToCart = () => {
-        const raw = Cookies.get(COOKIE_KEY)
-        const cart: Cart = raw ? JSON.parse(raw) : { items: [] }
-        const existing = cart.items.find((item:CartItem))
+        // add product to cart
+        const rawJson = Cookies.get(COOKIE_KEY)
 
-        const existing = cart.items.find((item: CartItem) => item.itemID === product?.prodID)
+        //ternary condition, if rawjson has value, parse it if not return empty array
+        const cart: Cart = rawJson ? JSON.parse(rawJson) : { items: []}
+
+        const existing = cart.items.find((item:CartItem) => item.itemID === product?.prodID)
         const updatedItems = existing
-            ? cart.items.map((item: CartItem) =>
-                item.itemID === product?.prodID
-                    ? { ...item, quantity: item.quantity + quantity }
-                    : item
-            )
-            //: [...cart.items, { id: movie.id, price: movie.price, quantity }]
-            : [...cart.items, { id: product?.prodID, quantity }]
+            ? cart.items.map(( item:CartItem)=>
+            item.itemID === product?.prodID ? {...item, quantity: item.quantity + quantity}
+            :item
+            ) : [...cart.items, {id: product?.prodID, quantity}]
 
-        Cookies.set(COOKIE_KEY, JSON.stringify({ items: updatedItems }), { expires: 1 })
+
+        Cookies.set(COOKIE_KEY, JSON.stringify({items: updatedItems}), {expires: 1})
 
         setShowMessage(true)
     }
@@ -48,19 +48,19 @@ function DetailsPage() {
             <h4 className="text-success">Item added to cart successfully!</h4>
         )}
 
-            {product && (
-                <div className="card">
-                    <h1>{product.prodName}</h1>
-                    {/*<img src={product.prodImgURL} alt={product.prodName} className="w-50 max-w-md mx-auto"/>*/}
-                    <p>{product.prodStory}</p>
-                    <p>
-                        <button className="btn btl-primary" onClick={handleAddToCart}>
-                            Add to Cart
-                        </button>
-                    </p>
-                </div>
-            )
-}
+                {product && (
+                    <div className="card">
+                        <h1>{product.prodName}</h1>
+                        {/*<img src={product.prodImgURL} alt={product.prodName} className="w-50 max-w-md mx-auto"/>*/}
+                        <p>{product.prodStory}</p>
+                        <p>
+                            <button className="btn btn-primary" onClick={handleAddToCart}>
+                                Add to Cart
+                            </button>
+                        </p>
+                    </div>
+                    )
+                }
         </>
     );
 }
