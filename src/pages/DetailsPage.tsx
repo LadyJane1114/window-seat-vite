@@ -33,7 +33,7 @@ function DetailsPage() {
             ? cart.items.map(( item:CartItem)=>
             item.itemID === product?.prodID ? {...item, quantity: item.quantity + quantity}
             :item
-            ) : [...cart.items, {id: product?.prodID, quantity}]
+            ) : [...cart.items, {itemID: product?.prodID, quantity}]
 
 
         Cookies.set(COOKIE_KEY, JSON.stringify({items: updatedItems}), {expires: 1})
