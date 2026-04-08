@@ -1,5 +1,4 @@
 import {Link, Outlet} from "react-router"
-import {NavDropdown} from "react-bootstrap";
 
 const Layout = () => {
     return (
@@ -11,13 +10,6 @@ const Layout = () => {
                             alt="Window Seat Dolls"
                             className="wsd-logo"/>
                     </Link>
-                    <NavDropdown title="Categories" id="category-dropdown">
-                        {category.map (c => (
-                            <NavDropdown.item key={c.categoryID} as={Link} to={`/category/${encodeURIComponent(cat.categoryID)}`}>
-                                {category.catName}
-                            </NavDropdown.item>
-                        ))}
-                    </NavDropdown>
 
                     <div className="cart-icon">
                         <Link to="/cart">
