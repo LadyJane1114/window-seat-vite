@@ -69,67 +69,44 @@
 
 
 /*book cards*/
-/* From Uiverse.io by eslam-hany */
-.book {
+/* based on book cards From Uiverse.io by eslam-hany */
+.product-book {
   position: relative;
   border-radius: 10px;
   width: 220px;
   height: 300px;
   background-color: whitesmoke;
-  -webkit-box-shadow: 1px 1px 12px #000;
   box-shadow: 1px 1px 12px #000;
-  -webkit-transform: preserve-3d;
-  -ms-transform: preserve-3d;
-  transform: preserve-3d;
-  -webkit-perspective: 2000px;
   perspective: 2000px;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  transform-style: preserve-3d;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
   color: #000;
 }
 
-.product-book {
-  top: 0;
+.book-img-cover {
   position: absolute;
-  background-color: lightgray;
+  top: 0;
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  background-color: lightgray;
   cursor: pointer;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform-origin: 0;
-  -ms-transform-origin: 0;
-  transform-origin: 0;
-  -webkit-box-shadow: 1px 1px 12px #000;
+  transition: transform 0.5s;        /* only transform transitions */
+  transform-origin: left;            /* flip from left edge */
   box-shadow: 1px 1px 12px #000;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
 }
 
 .product-book:hover .book-img-cover {
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform: rotatey(-80deg);
-  -ms-transform: rotatey(-80deg);
-  transform: rotatey(-80deg);
+  transform: rotateY(-80deg);        /* 3D flip on hover */
 }
 
 .product-book p {
   font-size: 20px;
   font-weight: bolder;
+  margin: 0;                          /* optional: remove default spacing */
 }

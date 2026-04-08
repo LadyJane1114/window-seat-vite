@@ -9,8 +9,6 @@ import DetailsPage from "./pages/DetailsPage.tsx";
 import CheckoutPage from "./pages/CheckoutPage.tsx";
 import ConfirmationPage from "./pages/ConfirmationPage.tsx";
 import Layout from "./pages/Layout.tsx";
-import CategoryGroupPage from "./pages/CategoryGroupPage.tsx";
-
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -21,7 +19,6 @@ createRoot(document.getElementById('root')!).render(
                       <Route path="/details/:prodID" element={<DetailsPage/>}/>
                       <Route path="/checkout" element={<CheckoutPage/>}/>
                       <Route path="/confirmation" element={<ConfirmationPage/>}/>
-                      <Route path="/category" element={<CategoryGroupPage/>}/>
                   </Route>
               </Routes>
       </BrowserRouter>

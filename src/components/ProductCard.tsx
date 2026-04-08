@@ -1,4 +1,4 @@
-import {Link} from "react-router";
+
 
 
 const ProductCard = () => {
@@ -7,7 +7,6 @@ const ProductCard = () => {
             <div className="category-section">
                 <div className="category-header">
                     <h2>{category.CatName}</h2>
-                    {/*<Link to="/category/CatID"/>*/}
                 </div>
                 <div className="product-book">
                     <h3>I'm {category.product.prodName}!</h3>
