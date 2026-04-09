@@ -33,7 +33,7 @@ const HomePage = () => {
             {Object.entries(productsByCategory).map(([categoryName, products]) => (
                 <div key={categoryName} className="category-section">
                     <div className="category-header">
-                        <h2>{categoryName}</h2>
+                        <h1>{categoryName}</h1>
                     </div>
 
                     <div className="product-grid">

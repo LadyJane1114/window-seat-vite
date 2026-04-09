@@ -2,6 +2,8 @@ import {useState, useEffect} from "react";
 import {Navigate} from "react-router";
 import Cookies from "js-cookie";
 
+import WindowSeat_girl1 from "../assets/WindowSeat_girl1.png"
+
 const ConfirmationPage = () => {
     const [status, setStatus] = useState(null);
     const [customerEmail, setCustomerEmail] = useState("");
@@ -31,10 +33,15 @@ const ConfirmationPage = () => {
         Cookies.remove(COOKIE_KEY);
         return(
             <section id="success">
-                <h2>We appreciate your business!</h2>
-                <p>A confirmation email will be sent to {customerEmail}</p>
-                <br/>
-                <p>Please direct any questions to help@windowseatdolls.ca</p>
+                <div className="confirm-container">
+                    <h1>We appreciate your business!</h1>
+                    <img src={WindowSeat_girl1}
+                         alt="Girl with pink cloud behind"
+                         style={{ width:"40%", borderRadius:"10px", objectFit:"cover"}}/>
+                    <h2>A confirmation email will be sent to {customerEmail}</h2>
+                    <br/>
+                    <p>Please direct any questions to help@windowseatdolls.ca</p>
+                </div>
             </section>
         )
     }
