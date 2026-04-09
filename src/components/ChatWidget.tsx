@@ -6,6 +6,7 @@ const API_BASE = "http://localhost:8080/chat";
 interface Message {
     role: "user" | "assistant";
     text: string;
+    products?: { id: number; name: string }[];
 }
 
 function generateId(): string {
@@ -29,18 +30,25 @@ export default function ChatWidget() {
     const sendMessage = async (): Promise<void> => {
         const trimmed = input.trim();
         if (!trimmed || loading) return;
+
         setMessages(prev => [...prev, { role: "user", text: trimmed }]);
         setInput("");
         setLoading(true);
+
         try {
             const params = new URLSearchParams({
                 message: trimmed,
                 conversationId: conversationId.current,
             });
+
             const res = await fetch(`${API_BASE}?${params}`, { method: "GET" });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const reply = await res.text();
-            setMessages(prev => [...prev, { role: "assistant", text: reply }]);
+
+            const parsed: { message: string; products?: { id: number; name: string }[] } = await res.json();
+            setMessages(prev => [
+                ...prev,
+                { role: "assistant", text: parsed.message, products: parsed.products }
+            ]);
         } catch (err) {
             console.error("Fetch error:", err);
             setMessages(prev => [...prev, { role: "assistant", text: "Something went wrong." }]);
@@ -86,10 +94,8 @@ export default function ChatWidget() {
                         style={{ flex: 1 }}
                     >
                         {messages.map((msg, i) => (
-                            <div
-                                key={i}
-                                className={`d-flex ${msg.role === "user" ? "justify-content-end" : "justify-content-start"}`}
-                            >
+                            <div key={i} className={`d-flex ${msg.role === "user" ? "justify-content-end" : "justify-content-start"}`}>
+                                {/* Chat bubble */}
                                 <div
                                     className={`px-2 py-2 rounded ${msg.role === "user" ? "text-white" : "bg-light border text-dark"}`}
                                     style={{
@@ -102,6 +108,17 @@ export default function ChatWidget() {
                                 >
                                     {msg.text}
                                 </div>
+
+                                {/* Product links */}
+                                {msg.products && msg.products.length > 0 && (
+                                    <div className="mt-2 d-flex flex-column gap-1">
+                                        {msg.products.map(p => (
+                                            <a key={p.id} href={`/details/${p.id}`} style={{ fontSize: 12 }}>
+                                                View {p.name}
+                                            </a>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         ))}
 
