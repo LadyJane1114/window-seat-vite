@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 import type {Product} from "../types/Product.tsx";
-import {Link} from "react-router";
 import ChatWidget from "../components/ChatWidget.tsx";
+import HeroBanner from "../components/HeroBanner.tsx";
+import ProductCard from "../components/ProductCard.tsx";
 
 const HomePage = () => {
     const [products, setProducts] = useState<Product[]>([])
@@ -10,28 +11,43 @@ const HomePage = () => {
         const fetchData = async () => {
             const res = await fetch('http://localhost:8080/');
             const products = await res.json();
+            console.log("Products from API:", products);
             setProducts(products)
         }
         fetchData()
     }, []);
 
+    const productsByCategory = products.reduce((acc, product) => {
+        const category = product.category?.CatName ?? "All Dolls";
+        if (!acc[category]) acc[category] = [];
+        acc[category].push(product);
+        return acc;
+    }, {} as Record<string, Product[]>);
+
 
 
     return (
         <>
-        <h1>Window Seat Dolls</h1>
+        <HeroBanner/>
 
-
-            {products.length > 0 && (
-                products.map(product => (
-                    <div key={product.prodID}>
-                        <Link to={`/details/${product.prodID}`}>
-                            {product.prodName}
-                            {/*<img src={product.prodImgURL} alt={product.prodName}/>*/}
-                        </Link>
+            {Object.entries(productsByCategory).map(([categoryName, products]) => (
+                <div key={categoryName} className="category-section">
+                    <div className="category-header">
+                        <h2>{categoryName}</h2>
                     </div>
-                ))
-            )}
+
+                    <div className="product-grid">
+                        {products.map(product => (
+                            <ProductCard
+                                key={product.prodID}
+                                prodName={product.prodName}
+                                prodID={product.prodID}
+                                prodImgURL={product.prodImgURL}
+                            />
+                        ))}
+                    </div>
+                </div>
+            ))}
 
             <ChatWidget/>
         </>

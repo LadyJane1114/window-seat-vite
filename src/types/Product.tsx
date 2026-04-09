@@ -1,3 +1,4 @@
+
 export interface Product {
     prodBirthday: string,
     prodCreateDate: string,
@@ -8,5 +9,11 @@ export interface Product {
     prodPrice: number,
     prodStockCount: number,
     prodStory: string,
-    prodWeight: number
+    prodWeight: number,
+    category:Category
+}
+
+export interface Category {
+    CatID: number,
+    CatName: string
 }

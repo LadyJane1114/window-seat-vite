@@ -1,8 +1,9 @@
-import {useParams} from "react-router";
+import {Link, useParams} from "react-router";
 import {useEffect, useState} from "react";
 import type {Product} from "../types/Product.tsx";
 import type {Cart, CartItem} from "../types/Cart.tsx";
 import Cookies from "js-cookie";
+import {Button} from "react-bootstrap";
 
 function DetailsPage() {
     const {prodID} = useParams()
@@ -35,34 +36,47 @@ function DetailsPage() {
             :item
             ) : [...cart.items, {itemID: product?.prodID, quantity}]
 
-
         Cookies.set(COOKIE_KEY, JSON.stringify({items: updatedItems}), {expires: 1})
 
         setShowMessage(true)
     }
 
-
+    if (!product) {
+        return <p>Loading...</p>;
+    }
 
     return (
-        <>{showMessage && (
-            <h4 className="text-success">Item added to cart successfully!</h4>
-        )}
+        <div className="details-page-container" style={{ display: "flex", gap: "2rem", padding: "2rem" }}>
+            {/* Left: Doll Image */}
+            <div className="details-left" style={{ flex: 1 }}>
+                <img
+                    src={product.prodImgURL ?? "/placeholder.png"}
+                    alt={product.prodName}
+                    style={{ width: "100%", borderRadius: "10px", objectFit: "cover" }}
+                />
+            </div>
 
-                {product && (
-                    <div className="card">
-                        <h1>{product.prodName}</h1>
-                        {/*<img src={product.prodImgURL} alt={product.prodName} className="w-50 max-w-md mx-auto"/>*/}
-                        <p>{product.prodStory}</p>
-                        <p>
-                            <button className="btn btn-primary" onClick={handleAddToCart}>
-                                Add to Cart
-                            </button>
-                        </p>
-                    </div>
-                    )
-                }
-        </>
+            {/* Right: Details & Purchase */}
+            <div className="details-right" style={{ flex: 1, display: "flex", flexDirection: "column", gap: "1rem" }}>
+                <h1>{product.prodName}</h1>
+                <p>{product.prodStory}</p>
+                {product.prodBirthday && <p><strong>Birthday:</strong> {product.prodBirthday}</p>}
+                {product.prodHeight && <p><strong>Height:</strong> {product.prodHeight} cm</p>}
+                {product.prodWeight && <p><strong>Weight:</strong> {product.prodWeight} kg</p>}
+                {product.prodPrice && <p><strong>Price:</strong> ${product.prodPrice}</p>}
+
+                <Button variant="primary" onClick={handleAddToCart}>
+                    Add to Cart
+                </Button>
+
+                {showMessage && <p style={{ color: "green", marginTop: "0.5rem" }}>Item added to cart successfully!</p>}
+
+                <Link to="/" style={{ marginTop: "1rem" }}>
+                    <Button variant="secondary">Back to Home Page</Button>
+                </Link>
+            </div>
+        </div>
     );
-}
+};
 
 export default DetailsPage;
