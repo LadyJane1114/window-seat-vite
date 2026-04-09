@@ -29,14 +29,15 @@ const CheckoutPage = () => {
 
     return (
         <>
-            <h1>Checkout</h1>
-
-            <EmbeddedCheckoutProvider
-                stripe={stripePromise}
-                options={options}
-            >
-                <EmbeddedCheckout />
-            </EmbeddedCheckoutProvider>
+            <div style={{ width: "100%", minHeight: "100vh" }}>
+                <h1>Checkout</h1>
+                <EmbeddedCheckoutProvider
+                    stripe={stripePromise}
+                    options={options}
+                >
+                    <EmbeddedCheckout />
+                </EmbeddedCheckoutProvider>
+            </div>
         </>
     )
 };
