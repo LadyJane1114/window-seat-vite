@@ -65,14 +65,14 @@ function DetailsPage() {
                 {product.prodWeight && <p><strong>Weight:</strong> {product.prodWeight} kg</p>}
                 {product.prodPrice && <p><strong>Price:</strong> ${product.prodPrice}</p>}
 
-                <Button variant="primary" onClick={handleAddToCart}>
+                <Button className="add-button" onClick={handleAddToCart}>
                     Add to Cart
                 </Button>
 
                 {showMessage && <p style={{ color: "green", marginTop: "0.5rem" }}>Item added to cart successfully!</p>}
 
                 <Link to="/" style={{ marginTop: "1rem" }}>
-                    <Button variant="secondary">Back to Home Page</Button>
+                    <Button className="back-button">Back to Home Page</Button>
                 </Link>
             </div>
         </div>
