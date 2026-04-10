@@ -24,13 +24,29 @@ const ConfirmationPage = () => {
             })
     }, []);
 
-    if (status === null) {
-        return <p>Loading your order...</p>;
-    }
+    useEffect(()=> {
+        if (status !== "complete") return;
+        const cart = Cookies.get(COOKIE_KEY);
 
-    if (status === "complete"){
-        // clear the cart
-        Cookies.remove(COOKIE_KEY);
+        fetch("http://localhost:8080/checkout/confirmation", {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: cart
+        });
+        Cookies.remove(COOKIE_KEY)
+    }, [status])
+
+        if (status === null) {
+            return <p>Loading your order...</p>;
+        }
+        if (status === "open") {
+            return (
+                <Navigate to="/checkout" />
+            )
+        }
+    console.log("STATUS CHANGED:", status);
         return(
             <section id="success">
                 <div className="confirm-container">
@@ -44,13 +60,6 @@ const ConfirmationPage = () => {
                 </div>
             </section>
         )
-    }
-    if (status === "open") {
-        return (
-            <Navigate to="/checkout" />
-        )
-    }
-
 };
 
 export default ConfirmationPage;
